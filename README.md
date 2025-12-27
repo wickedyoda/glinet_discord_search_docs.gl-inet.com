@@ -10,17 +10,24 @@ A Discord slash-command bot that searches **https://docs.gl-inet.com** and retur
 - **Domain restricted**: only searches `docs.gl-inet.com`
 - **Top results**: returns up to 10 results with titles, links, and snippets
 - **Fallback link**: if the search provider is unavailable, the bot returns a direct search URL
+- **Docker-ready**: run the bot in a container
 
 ---
 
 ## Requirements
 
+### Local
+
 - **Python** 3.10+
 - A **Discord application** and **bot token**
 
+### Docker
+
+- Docker Engine 20+
+
 ---
 
-## Quick Start
+## Quick Start (Local)
 
 1. **Clone and enter the repo**
 
@@ -61,6 +68,27 @@ A Discord slash-command bot that searches **https://docs.gl-inet.com** and retur
    ```bash
    python bot.py
    ```
+
+---
+
+## Quick Start (Docker)
+
+1. **Build the image**
+
+   ```bash
+   docker build -t glinet-docs-search:latest \
+     -t glinet-docs-search:$(date +%Y%m%d%H%M%S) .
+   ```
+
+2. **Run the container**
+
+   ```bash
+   docker run --rm \
+     --env DISCORD_BOT_TOKEN=your-token-here \
+     glinet-docs-search:latest
+   ```
+
+> Tip: You can also use an `.env` file and `--env-file .env`.
 
 ---
 
@@ -120,6 +148,8 @@ The bot will respond with up to 10 results from **docs.gl-inet.com**.
 ├── search.py           # Search logic and result parsing
 ├── requirements.txt    # Python dependencies
 ├── .env.example        # Example environment variables
+├── Dockerfile          # Container build
+├── .dockerignore       # Container ignores
 └── README.md           # Documentation
 ```
 
